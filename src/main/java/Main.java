@@ -1,7 +1,10 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
   public static void main(String[] args) throws Exception {
+    String[] builtInCommands = { "type", "echo", "exit" };
+
     while (true) {
       System.out.print("$ ");
 
@@ -13,8 +16,11 @@ public class Main {
       } else if (input.startsWith("echo")) {
         System.out.println(input.substring(5));
       } else if (input.startsWith("type")) {
-        if (input.substring(5).equals("echo") || input.substring(5).equals("exit")) {
-          System.out.println(input.substring(5) + " is a shell builtin");
+        String command = input.substring(5);
+        if (Arrays.asList(builtInCommands).contains(command)) {
+          System.out.println(command + " is a shell builtin");
+        } else {
+          System.out.println(command + ": not found");
         }
       } else {
         System.out.println(input + ": command not found");
